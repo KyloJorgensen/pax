@@ -2,7 +2,7 @@
   "name": "pax",
   "version": "1.0.0",
   "description": "An Interactive mock PAX Px5.",
-  "main": "index.js",
+  "main": "./client/app.js",
   "scripts": {
     "mkdir": "mkdir -p build",
     "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
