@@ -17,28 +17,33 @@ var Input = React.createClass({
 		_state.input = e.target.value;
 		this.setState(_state);
 	},
-	sumbitUpdate: function(e) {
-		e.preventDefault();
+	submitUpdate: function(e) {
+		if (e) {e.preventDefault();}
 		this.props.dispatch(configActions.updateField(this.state.input, this.props.name, 'input'));
-		console.log(this.props)
-		location.hash = '#'+ this.props.back;
+		if (this.props.forward) {
+			location.hash = '#'+ this.props.forward;
+		} else {
+			location.hash = '#'+ this.props.back;
+		}
 	},
 	render: function() {
 		return (
-			<form onSubmit={this.sumbitUpdate} >
-		    	<input value={this.state.input} onChange={this.handleChange} autoFocus='true' />
+			<form id='paxform' onSubmit={this.submitUpdate} >
+		    	<input id='paxinput' onFocus={this.handleChange} autoComplete="off" value={this.state.input} onChange={this.handleChange} autoFocus='true' />
 			</form>
 		);
 	}
 });
 
 var mapStateToProps = function(state, props) {
-    return {
+	var _props = {
     	input: state.config[props.name].input,
     	back: state.config[props.name].back,
+    	forward: state.config[props.name].forward 
     };
+	return _props;
 };
 
-var Container = connect(mapStateToProps)(Input);
+var Container = connect(mapStateToProps, null, null, { withRef: true })(Input);
 
 module.exports = Container;

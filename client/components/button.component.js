@@ -13,7 +13,6 @@ var Button = React.createClass({
 		window.removeEventListener('keydown', this.handleKeyDown.bind(this));
 	},
 	handleKeyDown: function(e) {
-		console.log(e)
 		if (e.key == this.props.number) {
 			location.hash = '#'+ this.props.link;
 		}

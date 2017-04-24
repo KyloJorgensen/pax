@@ -51,10 +51,8 @@
 	    Provider = __webpack_require__(191).Provider,
 	    store = __webpack_require__(239),
 	    App = __webpack_require__(246),
-	    HomePage = __webpack_require__(247),
-	    Test = __webpack_require__(316),
-	    Communication = __webpack_require__(317),
-	    Page = __webpack_require__(318)('Communication'),
+	    HomePage = __webpack_require__(247)('Main Menu'),
+	    Page = __webpack_require__(247)('Communication'),
 	    router = __webpack_require__(250),
 	    Router = router.Router,
 	    Route = router.Route,
@@ -63,12 +61,10 @@
 	    pages = Object.keys(__webpack_require__(245));
 	
 	var pageRoutes = [];
-	console.log(pages);
 	for (var i = 0; i < pages.length; i++) {
-	    var Component = __webpack_require__(318)(pages[i]);
+	    var Component = __webpack_require__(247)(pages[i]);
 	    pageRoutes.push(React.createElement(Route, { key: i, path: '/' + pages[i], component: Component }));
 	}
-	console.log(pageRoutes);
 	
 	var routes = React.createElement(
 	    Provider,
@@ -25667,7 +25663,8 @@
 	    state = state || configInitialState;
 	    var _state = state;
 	    if (actions.UPDATEFIELD === action.type) {
-	        _state[action.name][action.location] = action.field;
+	        // _state[action.name][action.location] = action.field;
+	        action.location in _state[action.name] ? _state[action.name][action.location] = action.field : '';
 	    }
 	    return _state;
 	};
@@ -26226,46 +26223,446 @@
 	'use strict';
 	
 	module.exports = {
-		'main': {
-			link: '/main',
+		'Main Menu': {
+			link: '/Main Menu',
 			title: "Main Menu",
-			name: "main",
-			buttons: ['test', 'test space', 'input field', 'address', 'test', 'Communication']
+			name: "Main Menu",
+			buttons: ['Display Transaction', 'Merchant Settings', 'Operation Settings', 'Host Settings', 'System Settings', 'Communication']
 		},
 		'test space': {
-			back: '/main',
+			back: '/Main Menu',
 			link: '/test space',
 			name: 'test space',
-			title: 'Test Space',
-			varButtons: ['main', 'input field'],
+			title: 'test space',
+			varButtons: ['Main Menu', 'input field'],
 			titleVar: 2
 		},
 		'test': {
-			back: '/main',
+			back: '/Main Menu',
 			link: '/test',
 			name: 'test',
 			title: 'test'
 		},
 		'input field': {
-			back: '/main',
+			back: '/Main Menu',
 			link: '/input field',
 			name: 'input field',
-			title: 'Input Field',
+			title: 'input field',
 			input: 'test input'
 		},
 		'address': {
-			back: '/main',
+			back: '/Main Menu',
 			link: '/address',
 			name: 'address',
-			title: 'Address',
+			title: 'address',
 			address: '000.000.000.000'
 		},
+		'Display Transaction': {
+			back: '/Main Menu',
+			link: '/Display Transaction',
+			name: 'Display Transaction',
+			title: 'Display Transaction',
+			buttons: ['Review', 'Find']
+		},
+		'Review': {
+			back: '/Display Transaction',
+			forward: '/Review Totals',
+			link: '/Review',
+			name: 'Review',
+			title: 'Password',
+			password: '123456'
+		},
+		'Review Totals': {
+			back: '/Display Transaction',
+			link: '/Review Totals',
+			name: 'Review Totals',
+			title: 'Totals (0)',
+			varButtons: ['CREDIT(0)    $0.00', 'DEBIT(0)    $0.00', 'EBT(0)    $0.00', 'GIFT(0)    $0.00', 'LOYALTY(0)    $0.00'],
+			varButtonOptions: ['Review Totals', 'Review Totals', 'Review Totals', 'Review Totals', 'Review Totals']
+		},
+		'Find': {
+			back: '/Display Transaction',
+			forward: '/Find Options',
+			link: '/Find',
+			name: 'Find',
+			title: 'Password',
+			password: '123456'
+		},
+		'Find Options': {
+			back: '/Display Transaction',
+			forward: '/Display Transaction',
+			link: '/Find Options',
+			name: 'Find Options',
+			title: 'Please Enter Last 4 Digits',
+			password: '1234'
+		},
+		'Merchant Settings': {
+			back: '/Main Menu',
+			link: '/Merchant Settings',
+			name: 'Merchant Settings',
+			title: 'Merchant Parameters',
+			buttons: ['Authorizations']
+		},
+		'Authorizations': {
+			back: '/Merchant Settings',
+			forward: '/Authorizations Options',
+			link: '/Authorizations',
+			name: 'Authorizations',
+			title: 'Password',
+			password: '123456'
+		},
+		'Authorizations Options': {
+			back: '/Merchant Settings',
+			link: '/Authorizations Options',
+			name: 'Authorizations Options',
+			title: 'Authorizations',
+			buttons: ['Transaction Types']
+		},
+		'Transaction Types': {
+			back: '/Authorizations Options',
+			link: '/Transaction Types',
+			name: 'Transaction Types',
+			title: 'Please Select Payment Method',
+			buttons: ['CREDIT', 'DEBIT', 'EBT', 'GIFT', 'LOYALATY']
+		},
+		'CREDIT': {
+			back: '/Transaction Types',
+			link: '/CREDIT',
+			name: 'CREDIT',
+			title: 'CREDIT',
+			buttons: ['AUTH', 'POSTAUTH', 'FORCED', 'RETURN', 'VERIFY', 'TOKENIZE', 'BALANCE', 'V/SALE', 'V/AUTH', 'V/POST', 'V/FRCD', 'V/RTRN']
+		},
+		'DEBIT': {
+			back: '/Transaction Types',
+			link: '/DEBIT',
+			name: 'DEBIT',
+			title: 'DEBIT',
+			buttons: ['RETURN', 'V/SALE']
+		},
+		'EBT': {
+			back: '/Transaction Types',
+			link: '/EBT',
+			name: 'EBT',
+			title: 'EBT',
+			buttons: ['RETURN', 'WITHDRAWAL', 'BALANCE']
+		},
+		'GIFT': {
+			back: '/Transaction Types',
+			link: '/GIFT',
+			name: 'GIFT',
+			title: 'GIFT',
+			buttons: ['ADD', 'ACTIVATE', 'REPLACE', 'BALANCE', 'VOID', 'DEACT']
+		},
+		'LOYALATY': {
+			back: '/Transaction Types',
+			link: '/LOYALATY',
+			name: 'LOYALATY',
+			title: 'LOYALATY',
+			buttons: ['ADD', 'REPLACE', 'BALANCE', 'VOID', 'DEACT']
+		},
+		'ACTIVATE': {
+			back: '/Transaction Types',
+			link: '/ACTIVATE',
+			name: 'ACTIVATE',
+			title: 'CARD-ACTIVATE',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'ADD': {
+			back: '/Transaction Types',
+			link: '/ADD',
+			name: 'ADD',
+			title: 'CARD-ADD',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'AUTH': {
+			back: '/Transaction Types',
+			link: '/AUTH',
+			name: 'AUTH',
+			title: 'CARD-AUTH',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'DEACT': {
+			back: '/Transaction Types',
+			link: '/DEACT',
+			name: 'DEACT',
+			title: 'CARD-DEACT',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'POSTAUTH': {
+			back: '/Transaction Types',
+			link: '/POSTAUTH',
+			name: 'POSTAUTH',
+			title: 'CARD-POSTAUTH',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'FORCED': {
+			back: '/Transaction Types',
+			link: '/FORCED',
+			name: 'FORCED',
+			title: 'CARD-FORCED',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'REPLACE': {
+			back: '/Transaction Types',
+			link: '/REPLACE',
+			name: 'REPLACE',
+			title: 'CARD-REPLACE',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'RETURN': {
+			back: '/Transaction Types',
+			link: '/RETURN',
+			name: 'RETURN',
+			title: 'CARD-RETURN',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'VERIFY': {
+			back: '/Transaction Types',
+			link: '/VERIFY',
+			name: 'VERIFY',
+			title: 'CARD-VERIFY',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'VOID': {
+			back: '/Transaction Types',
+			link: '/VOID',
+			name: 'VOID',
+			title: 'CARD-VOID',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'TOKENIZE': {
+			back: '/Transaction Types',
+			link: '/TOKENIZE',
+			name: 'TOKENIZE',
+			title: 'CARD-TOKENIZE',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'BALANCE': {
+			back: '/Transaction Types',
+			link: '/BALANCE',
+			name: 'BALANCE',
+			title: 'CARD-BALANCE',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'WITHDRAWAL': {
+			back: '/Transaction Types',
+			link: '/WITHDRAWAL',
+			name: 'WITHDRAWAL',
+			title: 'CARD-WITHDRAWAL',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'V/SALE': {
+			back: '/Transaction Types',
+			link: '/V/SALE',
+			name: 'V/SALE',
+			title: 'CARD-V/SALE',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'V/AUTH': {
+			back: '/Transaction Types',
+			link: '/V/AUTH',
+			name: 'V/AUTH',
+			title: 'CARD-V/AUTH',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'V/POST': {
+			back: '/Transaction Types',
+			link: '/V/POST',
+			name: 'V/POST',
+			title: 'CARD-V/POST',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'V/FRCD': {
+			back: '/Transaction Types',
+			link: '/V/FRCD',
+			name: 'V/FRCD',
+			title: 'CARD-V/FRCD',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'V/RTRN': {
+			back: '/Transaction Types',
+			link: '/V/RTRN',
+			name: 'V/RTRN',
+			title: 'CARD-V/RTRN',
+			varButtons: ['Disabled', 'Always Enabled', 'Password Protected'],
+			titleVar: 2
+		},
+		'Operation Settings': {
+			back: '/Main Menu',
+			link: '/Operation Settings',
+			name: 'Operation Settings',
+			title: 'Operation Settings'
+		},
+		'Host Settings': {
+			back: '/Main Menu',
+			link: '/Host Settings',
+			name: 'Host Settings',
+			title: 'Host Settings'
+		},
+		'System Settings': {
+			back: '/Main Menu',
+			link: '/System Settings',
+			name: 'System Settings',
+			title: 'System Settings'
+		},
 		'Communication': {
-			back: '/main',
+			back: '/Main Menu',
+			forward: '/Communication Options',
 			link: '/Communication',
 			name: 'Communication',
+			title: 'Password',
+			password: '123456'
+		},
+		'Communication Options': {
+			back: '/Main Menu',
+			link: '/Communication Options',
+			name: 'Communication Options',
 			title: 'Communication Options',
-			buttons: ['main', 'input field']
+			buttons: ['Main Communication', 'Backup Comm.', 'Maximum Tries', 'Connect Timeout', 'Receive Timeout', 'LAN Parameters', 'ECR Comm. Type']
+		},
+		'Main Communication': {
+			back: '/Communication Options',
+			link: '/Main Communication',
+			name: 'Main Communication',
+			title: 'Main Communication',
+			varButtons: ['LAN'],
+			titleVar: 1
+		},
+		'Backup Comm.': {
+			back: '/Communication Options',
+			link: '/Backup Comm.',
+			name: 'Backup Comm.',
+			title: 'Backup Communication',
+			varButtons: ['LAN', 'Name'],
+			titleVar: 2
+		},
+		'Maximum Tries': {
+			back: '/Communication Options',
+			link: '/Maximum Tries',
+			name: 'Maximum Tries',
+			title: 'Maximum Tries',
+			input: '1'
+		},
+		'Connect Timeout': {
+			back: '/Communication Options',
+			link: '/Connect Timeout',
+			name: 'Connect Timeout',
+			title: 'Connect Timeout',
+			input: '300'
+		},
+		'Receive Timeout': {
+			back: '/Communication Options',
+			link: '/Receive Timeout',
+			name: 'Receive Timeout',
+			title: 'Receive Timeout',
+			input: '450'
+		},
+		'LAN Parameters': {
+			back: '/Communication Options',
+			link: '/LAN Parameters',
+			name: 'LAN Parameters',
+			title: 'LAN Parameters',
+			buttons: ['LAN Type', 'IP Address', 'Subnet Mask', 'Gateway IP', 'DNS IP', 'PING', 'MAC Address']
+		},
+		'LAN Type': {
+			back: '/LAN Parameters',
+			link: '/LAN Type',
+			name: 'LAN Type',
+			title: 'LAN Type',
+			varButtons: ['DHCP', 'Static'],
+			titleVar: 2
+		},
+		'IP Address': {
+			back: '/LAN Parameters',
+			link: '/IP Address',
+			name: 'IP Address',
+			title: 'IP Address',
+			address: '192.168.001.005'
+		},
+		'Subnet Mask': {
+			back: '/LAN Parameters',
+			link: '/Subnet Mask',
+			name: 'Subnet Mask',
+			title: 'Subnet Mask',
+			address: '255.255.255.000'
+		},
+		'Gateway IP': {
+			back: '/LAN Parameters',
+			link: '/Gateway IP',
+			name: 'Gateway IP',
+			title: 'Gateway IP',
+			address: '192.168.001.001'
+		},
+		'DNS IP': {
+			back: '/LAN Parameters',
+			link: '/DNS IP',
+			name: 'DNS IP',
+			title: 'DNS IP',
+			address: '008.008.008.008'
+		},
+		'PING': {
+			back: '/LAN Parameters',
+			link: '/PING',
+			name: 'PING',
+			title: 'Server URL',
+			input: 'WWW.GOOGLE.COM'
+		},
+		'MAC Address': {
+			back: '/LAN Parameters',
+			link: '/MAC Address',
+			name: 'MAC Address',
+			title: 'MAC',
+			input: '1A5D47S1E6D4'
+		},
+		'ECR Comm. Type': {
+			back: '/Communication Options',
+			link: '/ECR Comm. Type',
+			name: 'ECR Comm. Type',
+			title: 'ECR Communication Type',
+			varButtons: ['COM2', 'USB', 'Ethernet'],
+			varButtonOptions: ['/COM2', null, '/Ethernet'],
+			titleVar: 3
+		},
+		'COM2': {
+			back: '/Communication Options',
+			link: '/COM2',
+			name: 'COM2',
+			title: 'ECR BaudRate',
+			varButtons: ['9600', '115200'],
+			titleVar: 1
+		},
+		'Ethernet': {
+			back: '/Communication Options',
+			forward: '/Communication Protocol',
+			link: '/Ethernet',
+			name: 'Ethernet',
+			title: 'Communication Port',
+			input: '2050'
+		},
+		'Communication Protocol': {
+			back: '/Communication Options',
+			link: '/Communication Protocol',
+			name: 'Communication Protocol',
+			title: 'Communication Protocol',
+			varButtons: ['TCP/IP', 'HTTP GET', 'SSL/TLS', 'HTTPS GET'],
+			titleVar: 2
 		}
 	};
 
@@ -26308,20 +26705,33 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(1),
-	    connect = __webpack_require__(191).connect,
-	    Page = __webpack_require__(248);
+	module.exports = function (name) {
+		var React = __webpack_require__(1),
+		    connect = __webpack_require__(191).connect,
+		    Page = __webpack_require__(248);
 	
-	var mapStateToProps = function mapStateToProps(state, props) {
-	    return {
-	        buttons: state.config.home.buttons,
-	        title: state.config.home.title
-	    };
+		var mapStateToProps = function mapStateToProps(state, props) {
+			var _props = {};
+			var _config = state.config[name];
+	
+			_props.name = 'name' in _config ? _config.name : '';
+			_props.title = 'title' in _config ? _config.title : '';
+			'buttons' in _config ? _props.buttons = _config.buttons : '';
+			'titleVar' in _config ? _props.titleVar = _config.titleVar : '';
+			'back' in _config ? _props.back = _config.back : '';
+			'input' in _config ? _props.input = _config.input : '';
+			'varButtons' in _config ? _props.varButtons = _config.varButtons : '';
+			'varButtonOptions' in _config ? _props.varButtonOptions = _config.varButtonOptions : '';
+			'address' in _config ? _props.address = _config.address : '';
+			'password' in _config ? _props.password = _config.password : '';
+	
+			return _props;
+		};
+	
+		var Container = connect(mapStateToProps)(Page);
+	
+		return Container;
 	};
-	
-	var Container = connect(mapStateToProps)(Page);
-	
-	module.exports = Container;
 
 /***/ }),
 /* 248 */
@@ -26335,11 +26745,21 @@
 	    NumberPad = __webpack_require__(313),
 	    Input = __webpack_require__(314),
 	    Address = __webpack_require__(315),
+	    VarButton = __webpack_require__(316),
+	    Password = __webpack_require__(317),
 	    Link = __webpack_require__(250).Link;
 	
 	var homePage = React.createClass({
 		displayName: 'homePage',
 	
+		sumbitform: function sumbitform() {
+			'paxform' in this.refs ? this.refs.paxform.getWrappedInstance().submitUpdate() : '';
+		},
+		clickButton: function clickButton(button) {
+			if ('button' + button in this.refs) {
+				this.refs['button' + button].getWrappedInstance().handleKeyDown({ key: button });
+			}
+		},
 		render: function render() {
 	
 			var content;
@@ -26350,7 +26770,7 @@
 					buttons.push(React.createElement(
 						'li',
 						{ key: i },
-						React.createElement(Button, { name: this.props.buttons[i], number: i + 1 })
+						React.createElement(Button, { ref: 'button' + (i + 1), name: this.props.buttons[i], number: i + 1 })
 					));
 				}
 				content = React.createElement(
@@ -26358,44 +26778,34 @@
 					null,
 					buttons
 				);
-			} else if ('input' in this.props) {
-				content = React.createElement(Input, { name: this.props.name });
-			} else if ('address' in this.props) {
-				content = React.createElement(Address, { name: this.props.name });
 			} else if ('varButtons' in this.props) {
-				var buttons = [];
+				var varButtons = [];
 				for (var i = 0; i < this.props.varButtons.length; i++) {
-					buttons.push(React.createElement(
+					var forward = 'varButtonOptions' in this.props ? this.props.varButtonOptions[i] : null;
+					varButtons.push(React.createElement(
 						'li',
 						{ key: i },
-						React.createElement(
-							'p',
-							null,
-							i + 1,
-							'. ',
-							this.props.varButtons[i]
-						)
+						React.createElement(VarButton, { ref: 'button' + (i + 1), name: this.props.name, buttonName: this.props.varButtons[i], back: this.props.back, forward: forward, number: i + 1 })
 					));
 				}
 				content = React.createElement(
 					'ul',
 					null,
-					buttons
+					varButtons
 				);
+			} else if ('input' in this.props) {
+				content = React.createElement(Input, { ref: 'paxform', name: this.props.name });
+			} else if ('address' in this.props) {
+				content = React.createElement(Address, { ref: 'paxform', name: this.props.name });
+			} else if ('password' in this.props) {
+				content = React.createElement(Password, { ref: 'paxform', name: this.props.name });
 			}
 	
 			var titleVar = '';
 			if ('titleVar' in this.props) {
 				titleVar = ': ' + this.props.titleVar;
 			}
-			var back = '';
-			if ('back' in this.props) {
-				back = React.createElement(
-					Link,
-					{ to: this.props.back },
-					'Back'
-				);
-			}
+	
 			return React.createElement(
 				'div',
 				{ className: 'home-page-wrapper' },
@@ -26406,11 +26816,10 @@
 					titleVar
 				),
 				content,
-				back,
 				React.createElement(
 					'div',
 					null,
-					React.createElement(NumberPad, { buttons: this.props.buttons, name: this.props.name })
+					React.createElement(NumberPad, { paxform: this.sumbitform, clickButton: this.clickButton, buttons: this.props.buttons, name: this.props.name, back: this.props.back })
 				)
 			);
 		}
@@ -26444,7 +26853,6 @@
 		},
 	
 		handleKeyDown: function handleKeyDown(e) {
-			console.log(e);
 			if (e.key == this.props.number) {
 				location.hash = '#' + this.props.link;
 			}
@@ -32135,9 +32543,25 @@
 	var NumberPad = React.createClass({
 		displayName: 'NumberPad',
 	
+		keyClick: function keyClick(e) {
+			if (document.getElementById('paxinput')) {
+				document.getElementById('paxinput').value = document.getElementById('paxinput').value + e.target.innerText;
+				document.getElementById('paxinput').focus();
+			} else {
+				this.props.clickButton(e.target.innerText);
+			}
+		},
+		clear: function clear() {
+			document.getElementById('paxinput').value = document.getElementById('paxinput').value.slice(0, document.getElementById('paxinput').value.length - 1);;
+			document.getElementById('paxinput').focus();
+		},
+		submit: function submit() {
+			if ('paxform' in this.props) {
+				this.props.paxform();
+			}
+		},
 		render: function render() {
 			var buttons = [];
-			console.log(this.props);
 			if (this.props.buttons != undefined) {
 				for (var i = 0; i < 9; i++) {
 					if (this.props.buttons.length > i) {
@@ -32162,7 +32586,19 @@
 						));
 					}
 				}
-			} else {}
+			} else {
+				for (var i = 0; i < 9; i++) {
+					buttons.push(React.createElement(
+						'li',
+						{ key: i },
+						React.createElement(
+							'a',
+							{ onClick: this.keyClick, className: 'button' },
+							i + 1
+						)
+					));
+				}
+			}
 	
 			return React.createElement(
 				'div',
@@ -32171,6 +32607,26 @@
 					'ul',
 					null,
 					buttons
+				),
+				React.createElement(
+					Link,
+					{ to: this.props.back },
+					'Back'
+				),
+				React.createElement(
+					'a',
+					{ onClick: this.keyClick, className: 'button' },
+					0
+				),
+				React.createElement(
+					'a',
+					{ onClick: this.clear },
+					'clear'
+				),
+				React.createElement(
+					'a',
+					{ onClick: this.submit },
+					'submit'
 				)
 			);
 		}
@@ -32210,29 +32666,36 @@
 			_state.input = e.target.value;
 			this.setState(_state);
 		},
-		sumbitUpdate: function sumbitUpdate(e) {
-			e.preventDefault();
+		submitUpdate: function submitUpdate(e) {
+			if (e) {
+				e.preventDefault();
+			}
 			this.props.dispatch(configActions.updateField(this.state.input, this.props.name, 'input'));
-			console.log(this.props);
-			location.hash = '#' + this.props.back;
+			if (this.props.forward) {
+				location.hash = '#' + this.props.forward;
+			} else {
+				location.hash = '#' + this.props.back;
+			}
 		},
 		render: function render() {
 			return React.createElement(
 				'form',
-				{ onSubmit: this.sumbitUpdate },
-				React.createElement('input', { value: this.state.input, onChange: this.handleChange, autoFocus: 'true' })
+				{ id: 'paxform', onSubmit: this.submitUpdate },
+				React.createElement('input', { id: 'paxinput', onFocus: this.handleChange, autoComplete: 'off', value: this.state.input, onChange: this.handleChange, autoFocus: 'true' })
 			);
 		}
 	});
 	
 	var mapStateToProps = function mapStateToProps(state, props) {
-		return {
+		var _props = {
 			input: state.config[props.name].input,
-			back: state.config[props.name].back
+			back: state.config[props.name].back,
+			forward: state.config[props.name].forward
 		};
+		return _props;
 	};
 	
-	var Container = connect(mapStateToProps)(Input);
+	var Container = connect(mapStateToProps, null, null, { withRef: true })(Input);
 	
 	module.exports = Container;
 
@@ -32258,7 +32721,7 @@
 		handleChange: function handleChange(e) {
 			var _address = e.target.value;
 			if (_address.length > this.props.address.length) {
-				return;
+				_address = this.state.address;
 			}
 			if (_address.length != this.props.address.length && _address.length % 4 == 3) {
 				if (_address.length < this.state.address.length) {
@@ -32273,10 +32736,10 @@
 				var number = parseInt(splitAddress[i]);
 				if ((i + 1) % 4 == 0) {
 					if (splitAddress[i] != '.') {
-						return;
+						_address = this.state.address;
 					}
 				} else if (!(number >= 0 || number <= 9)) {
-					return;
+					_address = this.state.address;
 				}
 			}
 	
@@ -32284,8 +32747,10 @@
 			_state.address = _address;
 			this.setState(_state);
 		},
-		sumbitUpdate: function sumbitUpdate(e) {
-			e.preventDefault();
+		submitUpdate: function submitUpdate(e) {
+			if (e) {
+				e.preventDefault();
+			}
 			if (this.state.address.length != this.props.address.length) {
 				return;
 			}
@@ -32295,8 +32760,8 @@
 		render: function render() {
 			return React.createElement(
 				'form',
-				{ onSubmit: this.sumbitUpdate },
-				React.createElement('input', { value: this.state.address, onChange: this.handleChange, autoFocus: 'true' })
+				{ onSubmit: this.submitUpdate },
+				React.createElement('input', { id: 'paxinput', onFocus: this.handleChange, autoComplete: 'off', value: this.state.address, onChange: this.handleChange, autoFocus: 'true' })
 			);
 		}
 	});
@@ -32308,7 +32773,7 @@
 		};
 	};
 	
-	var Container = connect(mapStateToProps)(Input);
+	var Container = connect(mapStateToProps, null, null, { withRef: true })(Input);
 	
 	module.exports = Container;
 
@@ -32319,16 +32784,36 @@
 	'use strict';
 	
 	var React = __webpack_require__(1),
-	    connect = __webpack_require__(191).connect;
+	    connect = __webpack_require__(191).connect,
+	    Link = __webpack_require__(250).Link,
+	    configActions = __webpack_require__(242);
 	
-	var TestPage = React.createClass({
-		displayName: 'TestPage',
+	var Button = React.createClass({
+		displayName: 'Button',
+		componentDidMount: function componentDidMount() {
+			window.addEventListener('keydown', this.handleKeyDown.bind(this));
+		},
+		componentWillUnmount: function componentWillUnmount() {
+			window.removeEventListener('keydown', this.handleKeyDown.bind(this));
+		},
 	
+		handleKeyDown: function handleKeyDown(e) {
+			console.log(e);
+			if (e.key == this.props.number) {
+				this.updateVar();
+				location.hash =  true ? this.props.forward : this.props.back;
+			}
+		},
+		updateVar: function updateVar() {
+			this.props.dispatch(configActions.updateField(this.props.number, this.props.name, 'titleVar'));
+		},
 		render: function render() {
 			return React.createElement(
-				'div',
-				{ className: 'home-page-wrapper' },
-				'test'
+				Link,
+				{ to: this.props.forward ? this.props.forward : this.props.back, className: 'button', onClick: this.updateVar },
+				this.props.number,
+				'. ',
+				this.props.buttonName
 			);
 		}
 	});
@@ -32337,7 +32822,7 @@
 		return {};
 	};
 	
-	var Container = connect(mapStateToProps)(TestPage);
+	var Container = connect(mapStateToProps, null, null, { withRef: true })(Button);
 	
 	module.exports = Container;
 
@@ -32349,53 +32834,56 @@
 	
 	var React = __webpack_require__(1),
 	    connect = __webpack_require__(191).connect,
-	    Page = __webpack_require__(248);
+	    Link = __webpack_require__(250).Link,
+	    configActions = __webpack_require__(242);
+	
+	var Password = React.createClass({
+		displayName: 'Password',
+	
+		getInitialState: function getInitialState() {
+			return {
+				password: '',
+				tries: 0
+			};
+		},
+		handleChange: function handleChange(e) {
+			var _state = this.state;
+			_state.password = e.target.value;
+			this.setState(_state);
+		},
+		submitUpdate: function submitUpdate(e) {
+			if (e) {
+				e.preventDefault();
+			}
+			if (this.state.password.length == this.props.password.length) {
+				location.hash = '#' + this.props.forward;
+			} else if (this.state.tries > 3) {
+				location.hash = '#' + this.props.back;
+			}
+			var _state = this.state;
+			_state.password = '';
+			this.setState(_state);
+		},
+		render: function render() {
+			return React.createElement(
+				'form',
+				{ onSubmit: this.submitUpdate },
+				React.createElement('input', { id: 'paxinput', onFocus: this.handleChange, autoComplete: 'off', value: this.state.password, onChange: this.handleChange, autoFocus: 'true' })
+			);
+		}
+	});
 	
 	var mapStateToProps = function mapStateToProps(state, props) {
-	  console.log(state, props);
-	  return {
-	    buttons: state.config.Communication.buttons,
-	    title: state.config.Communication.title
-	  };
+		return {
+			password: state.config[props.name].password,
+			back: state.config[props.name].back,
+			forward: state.config[props.name].forward
+		};
 	};
 	
-	var Container = connect(mapStateToProps)(Page);
+	var Container = connect(mapStateToProps, null, null, { withRef: true })(Password);
 	
 	module.exports = Container;
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = function (name) {
-		var React = __webpack_require__(1),
-		    connect = __webpack_require__(191).connect,
-		    Page = __webpack_require__(248);
-	
-		var mapStateToProps = function mapStateToProps(state, props) {
-			var _props = {};
-			var _config = state.config[name];
-	
-			_props.name = 'name' in _config ? _config.name : '';
-			_props.title = 'title' in _config ? _config.title : '';
-			'buttons' in _config ? _props.buttons = _config.buttons : '';
-			'titleVar' in _config ? _props.titleVar = _config.titleVar : '';
-			'back' in _config ? _props.back = _config.back : '';
-			'input' in _config ? _props.input = _config.input : '';
-			'varButtons' in _config ? _props.varButtons = _config.varButtons : '';
-			'address' in _config ? _props.address = _config.address : '';
-	
-			console.log(_props);
-	
-			return _props;
-		};
-	
-		var Container = connect(mapStateToProps)(Page);
-	
-		return Container;
-	};
 
 /***/ })
 /******/ ]);

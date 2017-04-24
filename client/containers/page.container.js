@@ -15,11 +15,10 @@ module.exports = function(name) {
 		'back' in _config ? _props.back = _config.back : '';
 		'input' in _config ? _props.input = _config.input : '';
 		'varButtons' in _config ? _props.varButtons = _config.varButtons : '';
+		'varButtonOptions' in _config ? _props.varButtonOptions = _config.varButtonOptions : '';
 		'address' in _config ? _props.address = _config.address : '';
-
-
-		console.log(_props);
-
+		'password' in _config ? _props.password = _config.password : '';
+		
 	    return _props;
 	};
 

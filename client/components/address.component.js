@@ -15,7 +15,7 @@ var Input = React.createClass({
 	handleChange: function(e) {
 		var _address = e.target.value;
 		if (_address.length > this.props.address.length) {
-			return;
+			_address = this.state.address;
 		}		
 		if (_address.length != this.props.address.length && _address.length%4 == 3) {
 			if (_address.length < this.state.address.length) {
@@ -30,10 +30,10 @@ var Input = React.createClass({
 			var number = parseInt(splitAddress[i]);
 			if ((i+1)%4 == 0) {
 				if (splitAddress[i] != '.') {
-					return
+					_address = this.state.address;
 				}
 			} else if (!(number >= 0 || number <= 9)) {
-				return
+				_address = this.state.address;
 			}
 		}
 
@@ -41,8 +41,8 @@ var Input = React.createClass({
 		_state.address = _address;
 		this.setState(_state);
 	},
-	sumbitUpdate: function(e) {
-		e.preventDefault();
+	submitUpdate: function(e) {
+		if (e) {e.preventDefault();}
 		if (this.state.address.length != this.props.address.length) {
 			return;
 		}
@@ -51,8 +51,8 @@ var Input = React.createClass({
 	},
 	render: function() {
 		return (
-			<form onSubmit={this.sumbitUpdate} >
-		    	<input value={this.state.address} onChange={this.handleChange} autoFocus='true' />
+			<form onSubmit={this.submitUpdate} >
+		    	<input id='paxinput' onFocus={this.handleChange} autoComplete="off" value={this.state.address} onChange={this.handleChange} autoFocus='true' />
 			</form>
 		);
 	},
@@ -65,6 +65,6 @@ var mapStateToProps = function(state, props) {
     };
 };
 
-var Container = connect(mapStateToProps)(Input);
+var Container = connect(mapStateToProps, null, null, { withRef: true })(Input);
 
 module.exports = Container;

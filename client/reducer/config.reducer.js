@@ -7,7 +7,8 @@ var configReducer = function(state, action) {
     state = state || configInitialState;
     var _state = state;
     if (actions.UPDATEFIELD === action.type) {
-    	_state[action.name][action.location] = action.field;
+    	// _state[action.name][action.location] = action.field;
+    	action.location in _state[action.name] ? _state[action.name][action.location] = action.field : '';
     }
     return _state;
 };

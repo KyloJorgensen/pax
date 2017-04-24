@@ -5,9 +5,25 @@ var React = require('react'),
 	Link = require('react-router').Link;
 
 var NumberPad = React.createClass({
+	keyClick: function(e) {
+		if (document.getElementById('paxinput')) {
+			document.getElementById('paxinput').value = document.getElementById('paxinput').value + e.target.innerText;
+			document.getElementById('paxinput').focus();
+		} else {
+			this.props.clickButton(e.target.innerText)
+		}
+	},
+	clear: function() {
+		document.getElementById('paxinput').value = document.getElementById('paxinput').value.slice(0, document.getElementById('paxinput').value.length - 1);;
+		document.getElementById('paxinput').focus();
+	},
+	submit: function() {
+		if ('paxform' in this.props) {
+			this.props.paxform();
+		}
+	},
 	render: function() {
 		var buttons = [];
-		console.log(this.props)
 		if (this.props.buttons != undefined) {
 			for (var i = 0; i < 9; i++) {
 				if (this.props.buttons.length > i ) {
@@ -17,6 +33,9 @@ var NumberPad = React.createClass({
 				}
 			}	
 		} else {
+			for (var i = 0; i < 9; i++) {
+				buttons.push(<li key={i} ><a onClick={this.keyClick} className="button" >{i + 1}</a></li>);
+			}
 
 		}
 		
@@ -25,6 +44,11 @@ var NumberPad = React.createClass({
 		    	<ul>
 		    		{buttons}
 		    	</ul>
+		    	
+		    	<Link to={this.props.back} >Back</Link>
+		    	<a onClick={this.keyClick} className="button" >{0}</a>
+		    	<a onClick={this.clear} >clear</a>
+		    	<a onClick={this.submit} >submit</a>
 		    </div>
 		);
 	}
