@@ -4,6 +4,7 @@
   "description": "An Interactive mock PAX Px5.",
   "main": "./client/app.js",
   "scripts": {
+    "start": "node server/server.js",
     "mkdir": "mkdir -p build",
     "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
     "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
@@ -66,7 +67,9 @@
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
   },
   "devDependencies": {
     "mocha": "^3.1.2"
