@@ -48,11 +48,24 @@ var homePage = React.createClass({
 		if ('titleVar' in this.props) {
 			titleVar = ': '+ this.props.titleVar;
 		}
-	
+		
+		var back = '';
+		if ('back' in this.props) {
+			back = (<Link to={this.props.back} >back</Link>);
+		}	
+
 		return (
 		    <div className="home-page-wrapper" >
-		    	<h1>{this.props.title}{titleVar}</h1>
-		    	{content}
+		    	<div className="screen-wrapper">
+		    		<div className="screentopbar"></div>
+		    		<div className="screen">
+		    			<div className="innerscreen">
+			    			<h3 style={{'font-weight': 'normal'}} >{this.props.title}{titleVar}</h3>
+			    			{content}
+			    			{back}
+						</div>
+					</div>
+				</div>
 				<div>
 					<NumberPad paxform={this.sumbitform} clickButton={this.clickButton} buttons={this.props.buttons} name={this.props.name} back={this.props.back} />
 				</div>

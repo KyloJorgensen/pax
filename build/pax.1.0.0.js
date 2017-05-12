@@ -26229,34 +26229,37 @@
 			name: "Main Menu",
 			buttons: ['Display Transaction', 'Merchant Settings', 'Operation Settings', 'Host Settings', 'System Settings', 'Communication']
 		},
-		'test space': {
-			back: '/Main Menu',
-			link: '/test space',
-			name: 'test space',
-			title: 'test space',
-			varButtons: ['Main Menu', 'input field'],
-			titleVar: 2
-		},
-		'test': {
-			back: '/Main Menu',
-			link: '/test',
-			name: 'test',
-			title: 'test'
-		},
-		'input field': {
-			back: '/Main Menu',
-			link: '/input field',
-			name: 'input field',
-			title: 'input field',
-			input: 'test input'
-		},
-		'address': {
-			back: '/Main Menu',
-			link: '/address',
-			name: 'address',
-			title: 'address',
-			address: '000.000.000.000'
-		},
+		// 'test space': {
+		// 	back: '/Main Menu',
+		// 	link: '/test space', 
+		// 	name: 'test space', 
+		// 	title: 'test space',
+		// 	varButtons: [
+		// 		'Main Menu',
+		// 		'input field',
+		// 	],
+		// 	titleVar: 2,
+		// },
+		// 'test': {
+		// 	back: '/Main Menu',
+		// 	link: '/test', 
+		// 	name: 'test', 
+		// 	title: 'test',
+		// },
+		// 'input field': {
+		// 	back: '/Main Menu',
+		// 	link: '/input field',
+		// 	name: 'input field',
+		// 	title: 'input field',
+		// 	input: 'test input',
+		// },
+		// 'address': {
+		// 	back: '/Main Menu',
+		// 	link: '/address',
+		// 	name: 'address',
+		// 	title: 'address',
+		// 	address: '000.000.000.000',
+		// },
 		'Display Transaction': {
 			back: '/Main Menu',
 			link: '/Display Transaction',
@@ -26508,19 +26511,72 @@
 			back: '/Main Menu',
 			link: '/Operation Settings',
 			name: 'Operation Settings',
-			title: 'Operation Settings'
+			title: 'Operation Settings',
+			varButtons: ['COMING SOON']
 		},
 		'Host Settings': {
 			back: '/Main Menu',
+			forward: '/Host Settings Options',
 			link: '/Host Settings',
 			name: 'Host Settings',
-			title: 'Host Settings'
+			title: 'Password',
+			password: '123456'
+		},
+		'Host Settings Options': {
+			back: '/Main Menu',
+			link: '/Host Settings Options',
+			name: 'Host Settings Options',
+			title: 'Host Settings',
+			buttons: ['Host Parameters']
+		},
+		'Host Parameters': {
+			back: '/Host Settings Options',
+			link: '/Host Parameters',
+			name: 'Host Parameters',
+			title: 'Host Parameters',
+			buttons: ['LicenseID', 'SiteID', 'DeviceID', 'UserName', 'Password']
+		},
+		'LicenseID': {
+			back: '/Host Parameters',
+			link: '/LicenseID',
+			name: 'LicenseID',
+			title: 'License ID',
+			input: '100002'
+		},
+		'SiteID': {
+			back: '/Host Parameters',
+			link: '/SiteID',
+			name: 'SiteID',
+			title: 'Site ID',
+			input: '100000'
+		},
+		'DeviceID': {
+			back: '/Host Parameters',
+			link: '/DeviceID',
+			name: 'DeviceID',
+			title: 'Device ID',
+			input: '2000002'
+		},
+		'UserName': {
+			back: '/Host Parameters',
+			link: '/UserName',
+			name: 'UserName',
+			title: 'UserName',
+			input: 'admin'
+		},
+		'Password': {
+			back: '/Host Parameters',
+			link: '/Password',
+			name: 'Password',
+			title: 'Password',
+			input: 'test1234'
 		},
 		'System Settings': {
 			back: '/Main Menu',
 			link: '/System Settings',
 			name: 'System Settings',
-			title: 'System Settings'
+			title: 'System Settings',
+			varButtons: ['COMING SOON']
 		},
 		'Communication': {
 			back: '/Main Menu',
@@ -26806,16 +26862,39 @@
 				titleVar = ': ' + this.props.titleVar;
 			}
 	
+			var back = '';
+			if ('back' in this.props) {
+				back = React.createElement(
+					Link,
+					{ to: this.props.back },
+					'back'
+				);
+			}
+	
 			return React.createElement(
 				'div',
 				{ className: 'home-page-wrapper' },
 				React.createElement(
-					'h1',
-					null,
-					this.props.title,
-					titleVar
+					'div',
+					{ className: 'screen-wrapper' },
+					React.createElement('div', { className: 'screentopbar' }),
+					React.createElement(
+						'div',
+						{ className: 'screen' },
+						React.createElement(
+							'div',
+							{ className: 'innerscreen' },
+							React.createElement(
+								'h3',
+								{ style: { 'font-weight': 'normal' } },
+								this.props.title,
+								titleVar
+							),
+							content,
+							back
+						)
+					)
 				),
-				content,
 				React.createElement(
 					'div',
 					null,
@@ -32602,31 +32681,51 @@
 	
 			return React.createElement(
 				'div',
-				{ className: 'home-page-wrapper' },
+				{ className: 'numberpad' },
 				React.createElement(
 					'ul',
 					null,
 					buttons
 				),
 				React.createElement(
-					Link,
-					{ to: this.props.back },
-					'Back'
-				),
-				React.createElement(
-					'a',
-					{ onClick: this.keyClick, className: 'button' },
-					0
-				),
-				React.createElement(
-					'a',
-					{ onClick: this.clear },
-					'clear'
-				),
-				React.createElement(
-					'a',
-					{ onClick: this.submit },
-					'submit'
+					'div',
+					null,
+					React.createElement(
+						'ul',
+						{ className: 'numberpadbottom' },
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								Link,
+								{ to: this.props.back, className: 'button double', style: { 'background': 'rgba(251, 69, 69, 0.55)' } },
+								'X'
+							)
+						),
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								'a',
+								{ onClick: this.keyClick, className: 'button', style: { 'color': 'white' } },
+								0
+							),
+							React.createElement(
+								'a',
+								{ onClick: this.clear, className: 'button', style: { 'background': 'rgba(255, 255, 11, 0.498039)', 'margin': '5px' } },
+								'<'
+							)
+						),
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								'a',
+								{ onClick: this.submit, className: 'button double', style: { 'background': 'rgba(22, 202, 22, 0.29)' } },
+								'O'
+							)
+						)
+					)
 				)
 			);
 		}

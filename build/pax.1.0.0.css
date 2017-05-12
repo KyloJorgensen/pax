@@ -1,4 +1,76 @@
 body {
   background-color: pink;
+  margin: 0;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.home-page-wrapper {
+  background-color: #2b2b2b;
+  padding: 5px;
+  border-radius: 25px;
+  width: 560px;
+}
+.screen-wrapper {
+  background-color: black;
+  padding: 20px 80px 25px 80px;
+  border-radius: 25px;
+}
+.screentopbar {
+  height: 16px;
+  background: white;
+}
+.screen {
+  background-color: #42b4e6;
+  width: 400px;
+  height: 224px;
+}
+.innerscreen {
+  background: white;
+  top: 16px;
+  position: relative;
+  height: 184px;
+  border-bottom: 4px solid;
+  border-top: 4px solid;
+}
+.innerscreen h3 {
+  text-align: center;
+}
+.numberpad {
+  margin: 5px auto auto auto;
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.23);
+  border-radius: 25px 25px 0px 0px;
+  border: solid;
+}
+.numberpad ul {
+  padding: 25px 25px 0px 25px;
+}
+.numberpad ul li {
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.numberpad ul li .button {
+  display: block;
+  background-color: black;
+  margin: 2px 5px;
+  color: #fff;
+  height: 25px;
+}
+.numberpad .numberpadbottom {
+  padding: 0px 25px;
+}
+.numberpad .numberpadbottom li {
+  width: 33%;
+  vertical-align: top;
+}
+.numberpad .numberpadbottom li .button {
+  color: black;
+}
+.numberpad .numberpadbottom .double {
+  height: 55px;
 }
 /*# sourceMappingURL=pax.1.0.0.css.map */

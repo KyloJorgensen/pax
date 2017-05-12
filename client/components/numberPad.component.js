@@ -40,15 +40,24 @@ var NumberPad = React.createClass({
 		}
 		
 		return (
-		    <div className="home-page-wrapper" >
+		    <div className="numberpad" >
 		    	<ul>
 		    		{buttons}
 		    	</ul>
-		    	
-		    	<Link to={this.props.back} >Back</Link>
-		    	<a onClick={this.keyClick} className="button" >{0}</a>
-		    	<a onClick={this.clear} >clear</a>
-		    	<a onClick={this.submit} >submit</a>
+		    	<div>
+		    		<ul className="numberpadbottom" >
+		    			<li>
+							<Link to={this.props.back} className="button double" style={{'background': 'rgba(251, 69, 69, 0.55)'}} >X</Link>
+						</li>
+						<li>
+							<a onClick={this.keyClick} className="button" style={{'color': 'white'}} >{0}</a>
+							<a onClick={this.clear} className="button" style={{'background': 'rgba(255, 255, 11, 0.498039)', 'margin': '5px'}} >&lt;</a>
+						</li>
+						<li>	
+							<a onClick={this.submit} className="button double" style={{'background': 'rgba(22, 202, 22, 0.29)'}} >O</a>
+						</li>
+					</ul>
+		    	</div>
 		    </div>
 		);
 	}
