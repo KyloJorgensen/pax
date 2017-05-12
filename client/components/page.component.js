@@ -24,9 +24,14 @@ var homePage = React.createClass({
 		var content;
 
 		if ('buttons' in this.props) {
+			var style = {};
+			if (this.props.buttons.length > 3) {
+				style = {'display': 'inline-block', 'width': '50%'};
+			}
+
 			var buttons = [];
 			for (var i = 0; i < this.props.buttons.length; i++) {
-				buttons.push(<li key={i} ><Button ref={'button'+(i+1)} name={this.props.buttons[i]} number={i + 1} /></li>);
+				buttons.push(<li key={i} style={style} ><Button ref={'button'+(i+1)} name={this.props.buttons[i]} number={i + 1} /></li>);
 			}
 			content = (<ul>{buttons}</ul>);	
 		} else if ('varButtons' in this.props) {
@@ -51,8 +56,19 @@ var homePage = React.createClass({
 		
 		var back = '';
 		if ('back' in this.props) {
-			back = (<Link to={this.props.back} >back</Link>);
+			back = (<Link to={this.props.back} style={{'bottom': '0','position': 'absolute'}} >back</Link>);
 		}	
+		
+		var next = '';
+		if ('next' in this.props) {
+			console.log(this.props.next)
+			next = (<Link to={this.props.next} style={{'position': 'absolute','top': '51%', 'right': '10px', 'color': '#2626d4', 'font-size': '32px'}} >&gt;</Link>);
+		}
+		
+		var prev = '';
+		if ('prev' in this.props) {
+			prev = (<Link to={this.props.prev} style={{'position': 'absolute','top': '51%', 'left': '10px', 'color': '#2626d4', 'font-size': '32px'}} >&lt;</Link>);
+		}
 
 		return (
 		    <div className="home-page-wrapper" >
@@ -61,7 +77,9 @@ var homePage = React.createClass({
 		    		<div className="screen">
 		    			<div className="innerscreen">
 			    			<h3 style={{'font-weight': 'normal'}} >{this.props.title}{titleVar}</h3>
+			    			{prev}
 			    			{content}
+			    			{next}
 			    			{back}
 						</div>
 					</div>

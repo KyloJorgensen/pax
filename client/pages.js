@@ -12,37 +12,6 @@ module.exports = {
 			'Communication',
 		],
 	},
-	// 'test space': {
-	// 	back: '/Main Menu',
-	// 	link: '/test space', 
-	// 	name: 'test space', 
-	// 	title: 'test space',
-	// 	varButtons: [
-	// 		'Main Menu',
-	// 		'input field',
-	// 	],
-	// 	titleVar: 2,
-	// },
-	// 'test': {
-	// 	back: '/Main Menu',
-	// 	link: '/test', 
-	// 	name: 'test', 
-	// 	title: 'test',
-	// },
-	// 'input field': {
-	// 	back: '/Main Menu',
-	// 	link: '/input field',
-	// 	name: 'input field',
-	// 	title: 'input field',
-	// 	input: 'test input',
-	// },
-	// 'address': {
-	// 	back: '/Main Menu',
-	// 	link: '/address',
-	// 	name: 'address',
-	// 	title: 'address',
-	// 	address: '000.000.000.000',
-	// },
 	'Display Transaction': {
 		back: '/Main Menu',
 		link: '/Display Transaction',
@@ -141,6 +110,7 @@ module.exports = {
 		link: '/CREDIT',
 		name: 'CREDIT',
 		title: 'CREDIT',
+		next: 'CREDIT2',
 		buttons: [
 			'AUTH',
 			'POSTAUTH',
@@ -148,6 +118,15 @@ module.exports = {
 			'RETURN',
 			'VERIFY',
 			'TOKENIZE',
+		],
+	},
+	'CREDIT2': {
+		back: '/Transaction Types',
+		link: '/CREDIT2',
+		name: 'CREDIT2',
+		title: 'CREDIT',
+		prev: 'CREDIT',
+		buttons: [
 			'BALANCE',
 			'V/SALE',
 			'V/AUTH',
@@ -516,6 +495,7 @@ module.exports = {
 		link: '/Communication Options',
 		name: 'Communication Options',
 		title: 'Communication Options',
+		next: 'Communication Options2',
 		buttons: [
 			'Main Communication',
 			'Backup Comm.',
@@ -523,6 +503,15 @@ module.exports = {
 			'Connect Timeout',
 			'Receive Timeout',
 			'LAN Parameters',
+		],
+	},
+	'Communication Options2': {
+		back: '/Main Menu',
+		link: '/Communication Options2',
+		name: 'Communication Options2',
+		title: 'Communication Options',
+		prev: 'Communication Options',
+		buttons: [
 			'ECR Comm. Type',
 		],
 	},
@@ -573,6 +562,7 @@ module.exports = {
 		link: '/LAN Parameters',
 		name: 'LAN Parameters',
 		title: 'LAN Parameters',
+		next: 'LAN Parameters2',
 		buttons: [
 			'LAN Type',
 			'IP Address',
@@ -580,6 +570,15 @@ module.exports = {
 			'Gateway IP',
 			'DNS IP',
 			'PING',
+		],
+	},
+	'LAN Parameters2': {
+		back: '/Communication Options',
+		link: '/LAN Parameters2',
+		name: 'LAN Parameters2',
+		title: 'LAN Parameters',
+		prev: 'LAN Parameters',
+		buttons: [
 			'MAC Address',
 		],
 	},

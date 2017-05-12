@@ -18,6 +18,9 @@ module.exports = function(name) {
 		'varButtonOptions' in _config ? _props.varButtonOptions = _config.varButtonOptions : '';
 		'address' in _config ? _props.address = _config.address : '';
 		'password' in _config ? _props.password = _config.password : '';
+		'next' in _config ? _props.next = _config.next : '';
+		'prev' in _config ? _props.prev = _config.prev : '';
+
 		
 	    return _props;
 	};

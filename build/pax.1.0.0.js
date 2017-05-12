@@ -26229,37 +26229,6 @@
 			name: "Main Menu",
 			buttons: ['Display Transaction', 'Merchant Settings', 'Operation Settings', 'Host Settings', 'System Settings', 'Communication']
 		},
-		// 'test space': {
-		// 	back: '/Main Menu',
-		// 	link: '/test space', 
-		// 	name: 'test space', 
-		// 	title: 'test space',
-		// 	varButtons: [
-		// 		'Main Menu',
-		// 		'input field',
-		// 	],
-		// 	titleVar: 2,
-		// },
-		// 'test': {
-		// 	back: '/Main Menu',
-		// 	link: '/test', 
-		// 	name: 'test', 
-		// 	title: 'test',
-		// },
-		// 'input field': {
-		// 	back: '/Main Menu',
-		// 	link: '/input field',
-		// 	name: 'input field',
-		// 	title: 'input field',
-		// 	input: 'test input',
-		// },
-		// 'address': {
-		// 	back: '/Main Menu',
-		// 	link: '/address',
-		// 	name: 'address',
-		// 	title: 'address',
-		// 	address: '000.000.000.000',
-		// },
 		'Display Transaction': {
 			back: '/Main Menu',
 			link: '/Display Transaction',
@@ -26333,7 +26302,16 @@
 			link: '/CREDIT',
 			name: 'CREDIT',
 			title: 'CREDIT',
-			buttons: ['AUTH', 'POSTAUTH', 'FORCED', 'RETURN', 'VERIFY', 'TOKENIZE', 'BALANCE', 'V/SALE', 'V/AUTH', 'V/POST', 'V/FRCD', 'V/RTRN']
+			next: 'CREDIT2',
+			buttons: ['AUTH', 'POSTAUTH', 'FORCED', 'RETURN', 'VERIFY', 'TOKENIZE']
+		},
+		'CREDIT2': {
+			back: '/Transaction Types',
+			link: '/CREDIT2',
+			name: 'CREDIT2',
+			title: 'CREDIT',
+			prev: 'CREDIT',
+			buttons: ['BALANCE', 'V/SALE', 'V/AUTH', 'V/POST', 'V/FRCD', 'V/RTRN']
 		},
 		'DEBIT': {
 			back: '/Transaction Types',
@@ -26591,7 +26569,16 @@
 			link: '/Communication Options',
 			name: 'Communication Options',
 			title: 'Communication Options',
-			buttons: ['Main Communication', 'Backup Comm.', 'Maximum Tries', 'Connect Timeout', 'Receive Timeout', 'LAN Parameters', 'ECR Comm. Type']
+			next: 'Communication Options2',
+			buttons: ['Main Communication', 'Backup Comm.', 'Maximum Tries', 'Connect Timeout', 'Receive Timeout', 'LAN Parameters']
+		},
+		'Communication Options2': {
+			back: '/Main Menu',
+			link: '/Communication Options2',
+			name: 'Communication Options2',
+			title: 'Communication Options',
+			prev: 'Communication Options',
+			buttons: ['ECR Comm. Type']
 		},
 		'Main Communication': {
 			back: '/Communication Options',
@@ -26635,7 +26622,16 @@
 			link: '/LAN Parameters',
 			name: 'LAN Parameters',
 			title: 'LAN Parameters',
-			buttons: ['LAN Type', 'IP Address', 'Subnet Mask', 'Gateway IP', 'DNS IP', 'PING', 'MAC Address']
+			next: 'LAN Parameters2',
+			buttons: ['LAN Type', 'IP Address', 'Subnet Mask', 'Gateway IP', 'DNS IP', 'PING']
+		},
+		'LAN Parameters2': {
+			back: '/Communication Options',
+			link: '/LAN Parameters2',
+			name: 'LAN Parameters2',
+			title: 'LAN Parameters',
+			prev: 'LAN Parameters',
+			buttons: ['MAC Address']
 		},
 		'LAN Type': {
 			back: '/LAN Parameters',
@@ -26780,6 +26776,8 @@
 			'varButtonOptions' in _config ? _props.varButtonOptions = _config.varButtonOptions : '';
 			'address' in _config ? _props.address = _config.address : '';
 			'password' in _config ? _props.password = _config.password : '';
+			'next' in _config ? _props.next = _config.next : '';
+			'prev' in _config ? _props.prev = _config.prev : '';
 	
 			return _props;
 		};
@@ -26821,11 +26819,16 @@
 			var content;
 	
 			if ('buttons' in this.props) {
+				var style = {};
+				if (this.props.buttons.length > 3) {
+					style = { 'display': 'inline-block', 'width': '50%' };
+				}
+	
 				var buttons = [];
 				for (var i = 0; i < this.props.buttons.length; i++) {
 					buttons.push(React.createElement(
 						'li',
-						{ key: i },
+						{ key: i, style: style },
 						React.createElement(Button, { ref: 'button' + (i + 1), name: this.props.buttons[i], number: i + 1 })
 					));
 				}
@@ -26866,8 +26869,27 @@
 			if ('back' in this.props) {
 				back = React.createElement(
 					Link,
-					{ to: this.props.back },
+					{ to: this.props.back, style: { 'bottom': '0', 'position': 'absolute' } },
 					'back'
+				);
+			}
+	
+			var next = '';
+			if ('next' in this.props) {
+				console.log(this.props.next);
+				next = React.createElement(
+					Link,
+					{ to: this.props.next, style: { 'position': 'absolute', 'top': '51%', 'right': '10px', 'color': '#2626d4', 'font-size': '32px' } },
+					'>'
+				);
+			}
+	
+			var prev = '';
+			if ('prev' in this.props) {
+				prev = React.createElement(
+					Link,
+					{ to: this.props.prev, style: { 'position': 'absolute', 'top': '51%', 'left': '10px', 'color': '#2626d4', 'font-size': '32px' } },
+					'<'
 				);
 			}
 	
@@ -26890,7 +26912,9 @@
 								this.props.title,
 								titleVar
 							),
+							prev,
 							content,
+							next,
 							back
 						)
 					)
